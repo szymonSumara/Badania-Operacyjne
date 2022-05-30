@@ -38,8 +38,14 @@ def genetic_algorithm(graph, start_station, end_station):
             print(calculate_solution_cost(graph.graph, item[0], item[1]))
 
         new_population = []
+        crossingSet = set()
         for j in range(config.number_of_crossing):
+
             parents = random.choices(population, k=2)
+            parents_indexes = (population.index(parents[0]),population.index(parents[1]))
+            if parents_indexes in crossingSet:
+                continue
+            crossingSet.add(parents_indexes)
             children = crossing2(
                 graph, parents[0][0], parents[1][0], parents[0][1], parents[1][1]
             )
